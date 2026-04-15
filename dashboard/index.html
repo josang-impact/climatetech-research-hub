@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact Climate Research Hub</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════
+   IMPACT CLIMATE RESEARCH HUB
+   Brand: Kakao Impact (#FFCD00)
+   Style: impactclimate.net reference
+   ═══════════════════════════════════ */
+:root {
+  --y: #FFCD00;     /* Kakao Yellow */
+  --y2: #FFE066;
+  --y-dim: rgba(255,205,0,0.12);
+  --y-dim2: rgba(255,205,0,0.06);
+  --bk: #0A0A0A;
+  --bk2: #111111;
+  --bk3: #1A1A1A;
+  --bk4: #222222;
+  --gr: #4D4D4D;    /* Kakao Gray */
+  --gr2: #888;
+  --gr3: #aaa;
+  --gr4: #333;
+  --wh: #FFFFFF;
+  --wh2: #F5F5F5;
+  --wh3: rgba(255,255,255,0.7);
+  --wh4: rgba(255,255,255,0.4);
+  --gn: #00E676;
+  --bl: #448AFF;
+  --pk: #FF4081;
+  --or: #FF9100;
+  --tl: #00E5FF;
+  --pp: #B388FF;
+  --rd: 16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Pretendard Variable',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bk);color:var(--wh);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--y);color:var(--bk)}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 3rem;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);transition:all 0.4s}
+.nav-logo{font-size:0.92rem;font-weight:700;letter-spacing:0.02em;color:var(--wh)}
+.nav-logo em{font-style:normal;color:var(--y)}
+.nav-links{display:flex;gap:0.25rem}
+.nav-link{padding:0.45rem 0.9rem;font-size:0.82rem;font-weight:500;color:var(--wh4);cursor:pointer;border-radius:6px;transition:all 0.25s;border:none;background:none}
+.nav-link:hover{color:var(--wh)}
+.nav-link.active{color:var(--y);background:var(--y-dim)}
+.nav-tag{font-size:0.7rem;padding:0.2rem 0.6rem;border-radius:20px;border:1px solid rgba(255,255,255,0.1);color:var(--wh4);margin-left:0.75rem}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 6rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40%;left:-20%;width:80vw;height:80vw;background:radial-gradient(circle,rgba(255,205,0,0.06) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-30%;right:-20%;width:60vw;height:60vw;background:radial-gradient(circle,rgba(0,230,118,0.04) 0%,transparent 70%);pointer-events:none}
+.hero-eyebrow{font-size:0.78rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--y);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.5rem}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:24px;height:1px;background:var(--y)}
+.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;letter-spacing:-0.03em;line-height:1.15;margin-bottom:1.5rem;max-width:900px}
+.hero h1 span{color:var(--y)}
+.hero-sub{font-size:1.1rem;color:var(--wh3);max-width:560px;margin-bottom:3.5rem}
+.hero-metrics{display:flex;gap:3rem;flex-wrap:wrap;justify-content:center}
+.hero-metric{text-align:center;position:relative}
+.hero-metric .val{font-size:2.8rem;font-weight:800;letter-spacing:-0.02em;color:var(--y)}
+.hero-metric .lbl{font-size:0.75rem;color:var(--wh4);letter-spacing:0.05em;text-transform:uppercase;margin-top:0.2rem}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);font-size:0.75rem;color:var(--wh4);display:flex;flex-direction:column;align-items:center;gap:0.5rem;animation:float 2s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+.hero-scroll::after{content:'';width:1px;height:32px;background:linear-gradient(var(--wh4),transparent)}
+
+/* ── SECTIONS ── */
+.sec{padding:7rem 3rem;max-width:1280px;margin:0 auto;opacity:0;transform:translateY(30px);transition:all 0.8s cubic-bezier(0.16,1,0.3,1)}
+.sec.visible{opacity:1;transform:translateY(0)}
+.sec-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);margin:0 auto}
+.sec-header{margin-bottom:3.5rem}
+.sec-eyebrow{font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--y);margin-bottom:0.75rem}
+.sec-header h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-0.02em;line-height:1.2;margin-bottom:0.75rem}
+.sec-header p{font-size:1rem;color:var(--wh4);max-width:600px}
+
+/* ── GRID ── */
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+
+/* ── CARD ── */
+.c{background:var(--bk3);border:1px solid rgba(255,255,255,0.06);border-radius:var(--rd);padding:2rem;transition:all 0.35s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden}
+.c:hover{border-color:rgba(255,205,0,0.2);transform:translateY(-3px);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.c::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--y);transform:scaleX(0);transform-origin:left;transition:transform 0.4s}
+.c:hover::before{transform:scaleX(1)}
+.c-tag{display:inline-block;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.65rem;border-radius:4px;margin-bottom:1rem}
+.c h3{font-size:1.15rem;font-weight:700;margin-bottom:0.3rem;line-height:1.35}
+.c h3 small{font-weight:400;color:var(--wh4);font-size:0.82rem}
+.c-desc{font-size:0.88rem;color:var(--wh3);margin-bottom:1rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.c-meta{display:flex;flex-wrap:wrap;gap:0.4rem}
+.badge{font-size:0.7rem;padding:0.2rem 0.55rem;border-radius:4px;background:rgba(255,255,255,0.06);color:var(--wh4);border:1px solid rgba(255,255,255,0.06)}
+.c-accent{margin-top:1rem;padding:0.75rem 1rem;background:var(--y-dim2);border-left:2px solid var(--y);border-radius:0 8px 8px 0;font-size:0.82rem;color:var(--y2)}
+
+/* tag colors */
+.tag-y{background:var(--y-dim);color:var(--y)}
+.tag-gn{background:rgba(0,230,118,0.1);color:var(--gn)}
+.tag-bl{background:rgba(68,138,255,0.1);color:var(--bl)}
+.tag-pp{background:rgba(179,136,255,0.1);color:var(--pp)}
+.tag-or{background:rgba(255,145,0,0.1);color:var(--or)}
+.tag-pk{background:rgba(255,64,129,0.1);color:var(--pk)}
+.tag-tl{background:rgba(0,229,255,0.1);color:var(--tl)}
+
+/* ── STAT ROW ── */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.25rem;margin-bottom:3rem}
+.stat{background:var(--bk2);border:1px solid rgba(255,255,255,0.04);border-radius:12px;padding:1.75rem;text-align:center}
+.stat .val{font-size:2rem;font-weight:800;letter-spacing:-0.02em}
+.stat .lbl{font-size:0.72rem;color:var(--wh4);letter-spacing:0.05em;text-transform:uppercase;margin-top:0.3rem}
+.val-y{color:var(--y)}
+.val-gn{color:var(--gn)}
+.val-bl{color:var(--bl)}
+.val-pp{color:var(--pp)}
+
+/* ── TABLE ── */
+.tbl-wrap{border-radius:var(--rd);overflow:hidden;border:1px solid rgba(255,255,255,0.06);margin-bottom:2rem}
+table{width:100%;border-collapse:collapse;font-size:0.88rem}
+thead{background:var(--bk4)}
+th{text-align:left;padding:0.85rem 1.25rem;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--wh4)}
+td{padding:0.85rem 1.25rem;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--wh3)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+td strong{color:var(--wh);font-weight:600}
+
+/* ── TIMELINE ── */
+.tl{position:relative;padding-left:2.5rem}
+.tl::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.08)}
+.tl-item{position:relative;margin-bottom:2rem;padding-left:0.5rem}
+.tl-item::before{content:'';position:absolute;left:-2.45rem;top:0.55rem;width:8px;height:8px;border-radius:50%;background:var(--gr);border:2px solid var(--bk3)}
+.tl-item.hl::before{background:var(--y);box-shadow:0 0 12px rgba(255,205,0,0.4);width:10px;height:10px;left:-2.5rem}
+.tl-date{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gr2)}
+.tl-item.hl .tl-date{color:var(--y)}
+.tl-title{font-size:1rem;font-weight:700;margin-top:0.15rem}
+.tl-item.hl .tl-title{color:var(--y)}
+.tl-sub{font-size:0.85rem;color:var(--wh4)}
+
+/* ── FILTER ── */
+.filter-bar{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2rem;align-items:center}
+.f-input{flex:1;min-width:200px;padding:0.7rem 1.1rem;background:var(--bk2);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:var(--wh);font-size:0.9rem;font-family:inherit;outline:none;transition:border-color 0.2s}
+.f-input:focus{border-color:var(--y)}
+.f-input::placeholder{color:var(--wh4)}
+.chip{padding:0.45rem 0.85rem;border-radius:20px;font-size:0.78rem;font-weight:600;border:1px solid rgba(255,255,255,0.1);background:transparent;color:var(--wh4);cursor:pointer;transition:all 0.2s}
+.chip:hover{border-color:rgba(255,255,255,0.3);color:var(--wh3)}
+.chip.on{background:var(--y);color:var(--bk);border-color:var(--y);font-weight:700}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:300;display:none;align-items:center;justify-content:center;padding:2rem;opacity:0;transition:opacity 0.3s}
+.modal-overlay.open{display:flex;opacity:1}
+.modal{background:var(--bk3);border:1px solid rgba(255,255,255,0.08);border-radius:20px;max-width:720px;width:100%;max-height:85vh;overflow-y:auto;padding:2.5rem;position:relative;transform:translateY(20px);transition:transform 0.3s}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal::-webkit-scrollbar{width:4px}
+.modal::-webkit-scrollbar-thumb{background:var(--gr);border-radius:2px}
+.modal-close{position:absolute;top:1.25rem;right:1.25rem;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);background:var(--bk4);color:var(--wh4);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.modal-close:hover{background:rgba(255,255,255,0.1);color:var(--wh)}
+.modal .m-tag{display:inline-block;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.7rem;border-radius:4px;margin-bottom:1rem}
+.modal h2{font-size:1.5rem;font-weight:800;margin-bottom:0.5rem;line-height:1.3}
+.modal .m-subtitle{font-size:0.92rem;color:var(--wh4);margin-bottom:1.5rem}
+.modal h3{font-size:1.05rem;font-weight:700;margin:1.5rem 0 0.5rem;color:var(--y);display:flex;align-items:center;gap:0.4rem}
+.modal h3::before{content:'';width:3px;height:1em;background:var(--y);border-radius:2px}
+.modal p,.modal li{font-size:0.9rem;color:var(--wh3);line-height:1.75}
+.modal ul{padding-left:1.2rem;margin-bottom:1rem}
+.modal li{margin-bottom:0.4rem}
+.modal .m-stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.75rem;margin:1rem 0 1.5rem}
+.modal .m-stat{background:var(--bk2);border:1px solid rgba(255,255,255,0.04);border-radius:10px;padding:1rem;text-align:center}
+.modal .m-stat .val{font-size:1.5rem;font-weight:800}
+.modal .m-stat .lbl{font-size:0.7rem;color:var(--wh4);margin-top:0.15rem;text-transform:uppercase;letter-spacing:0.05em}
+.modal .m-highlight{background:var(--y-dim2);border-left:3px solid var(--y);border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1rem 0;font-size:0.88rem;color:var(--y2)}
+.modal .m-table{width:100%;border-collapse:collapse;font-size:0.85rem;margin:0.75rem 0 1rem}
+.modal .m-table th{text-align:left;padding:0.6rem 0.75rem;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--wh4);background:var(--bk4);border-radius:4px}
+.modal .m-table td{padding:0.6rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--wh3)}
+
+/* clickable policy cards */
+.policy-card{cursor:pointer;transition:all 0.3s}
+.policy-card:hover{border-color:var(--y);box-shadow:0 0 0 1px var(--y)}
+.policy-card::after{content:'자세히 보기 →';position:absolute;bottom:0.75rem;right:1rem;font-size:0.7rem;color:var(--wh4);opacity:0;transition:opacity 0.3s}
+.policy-card:hover::after{opacity:1}
+
+/* ── FOOTER ── */
+.footer{border-top:1px solid rgba(255,255,255,0.06);padding:3rem;text-align:center}
+.footer-logo{font-size:0.85rem;font-weight:700;margin-bottom:0.5rem}
+.footer-logo em{font-style:normal;color:var(--y)}
+.footer p{font-size:0.78rem;color:var(--wh4)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){.g3,.g4{grid-template-columns:repeat(2,1fr)}.sec{padding:5rem 2rem}}
+@media(max-width:768px){
+  .nav{padding:0 1.5rem}
+  .nav-links{display:none}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .hero h1{font-size:2rem}
+  .hero-metrics{gap:1.5rem}
+  .sec{padding:4rem 1.25rem}
+  .stat-row{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">IMPACT<em>CLIMATE</em> RESEARCH HUB</div>
+  <div class="nav-links">
+    <button class="nav-link active" data-to="hero">Home</button>
+    <button class="nav-link" data-to="s-invest">Investment</button>
+    <button class="nav-link" data-to="s-startup">Startups</button>
+    <button class="nav-link" data-to="s-policy">Policy</button>
+    <button class="nav-link" data-to="s-ai">AI × Climate</button>
+    <button class="nav-link" data-to="s-eco">Ecosystem</button>
+    <button class="nav-link" data-to="s-event">Events</button>
+  </div>
+  <span class="nav-tag">Updated 2026.04.15 — Web Verified</span>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="hero">
+  <div class="hero-eyebrow">Impact Climate Research Hub</div>
+  <h1>Discovering &<br><span>Climate Tech</span><br>Ecosystem Intelligence</h1>
+  <p class="hero-sub">카카오임팩트 임팩트클라이밋 사업의 기후테크 생태계 리서치 결과를 한눈에 조망합니다.</p>
+  <div class="hero-metrics">
+    <div class="hero-metric"><div class="val">6</div><div class="lbl">Research Areas</div></div>
+    <div class="hero-metric"><div class="val">272</div><div class="lbl">KR Climate Startups</div></div>
+    <div class="hero-metric"><div class="val">50+</div><div class="lbl">Ecosystem Players</div></div>
+    <div class="hero-metric"><div class="val">$40.5B</div><div class="lbl">2025 Global VC</div></div>
+  </div>
+  <div class="hero-scroll">Scroll<br>to explore</div>
+</section>
+
+<!-- ═══ OVERVIEW ═══ -->
+<div class="sec-divider"></div>
+<section class="sec" id="s-overview">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Overview</div>
+    <h2>6개 리서치 영역</h2>
+    <p>AI 리서치 에이전트가 수집한 기후테크 생태계 핵심 인사이트</p>
+  </div>
+  <div class="g3">
+    <div class="c" style="cursor:pointer" onclick="scrollTo_('s-invest')"><div class="c-tag tag-y">Investment</div><h3>글로벌 기후테크 투자</h3><div class="c-desc">2025년 $40.5B (+8% YoY). 에너지 $14.4B 3년 최고. 핵에너지/핵융합 사상 최고치. 누적 $255B 돌파.</div><div class="c-meta"><span class="badge">에너지 36%</span><span class="badge">핵융합 급부상</span><span class="badge">시리즈B+ 집중</span></div></div>
+    <div class="c" style="cursor:pointer" onclick="scrollTo_('s-startup')"><div class="c-tag tag-gn">Startups</div><h3>30+ 주목 스타트업</h3><div class="c-desc">국내 9개, 글로벌 23개 프로필. 에너지AI, CCUS, 순환경제, 기후데이터, AI+기후 분야별 매핑.</div><div class="c-meta"><span class="badge">🇰🇷 국내 9</span><span class="badge">🌏 해외 23</span></div></div>
+    <div class="c" style="cursor:pointer" onclick="scrollTo_('s-policy')"><div class="c-tag tag-pp">Policy</div><h3>글로벌 정책 모니터</h3><div class="c-desc">EU CBAM 1월 시행 (12,000+ 사업자). COP30 벨렝 패키지 195국 채택. 한국기후테크협회 46개사 설립.</div><div class="c-meta"><span class="badge">CBAM €70-100/t</span><span class="badge">COP30 벨렝</span></div></div>
+    <div class="c" style="cursor:pointer" onclick="scrollTo_('s-ai')"><div class="c-tag tag-tl">AI × Climate</div><h3>AI 기후 솔루션 기술</h3><div class="c-desc">NOAA 운영급 AI 기상 모델 도입. DeepMet 예측 오차 20-60% 감소. 1000년 기후 시뮬레이션 하루만에.</div><div class="c-meta"><span class="badge">NOAA AI 운영</span><span class="badge">DeepMet</span></div></div>
+    <div class="c" style="cursor:pointer" onclick="scrollTo_('s-eco')"><div class="c-tag tag-or">Ecosystem</div><h3>50+ 핵심 플레이어</h3><div class="c-desc">VC 16곳+, 정부기관 10개, 대기업 9그룹, 대학 5개. 연결 구조 및 투자 경로 분석.</div><div class="c-meta"><span class="badge">VC</span><span class="badge">CVC</span><span class="badge">정부</span></div></div>
+    <div class="c" style="cursor:pointer" onclick="scrollTo_('s-event')"><div class="c-tag tag-pk">Events</div><h3>2026 이벤트 캘린더</h3><div class="c-desc">COP31 터키 안탈리아 (11.9-20, 호주 의장국). COP30 벨렝 패키지 성과. IEA WEI: 청정에너지 $2.2T.</div><div class="c-meta"><span class="badge">COP31 안탈리아</span><span class="badge">IEA $3.3T</span></div></div>
+  </div>
+</section>
+
+<!-- ═══ INVESTMENT ═══ -->
+<div class="sec-divider"></div>
+<section class="sec" id="s-invest">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Investment Tracker</div>
+    <h2>기후테크 투자 동향</h2>
+    <p>글로벌/국내 VC 투자, 주요 딜, 펀드 조성</p>
+  </div>
+  <div class="stat-row">
+    <div class="stat"><div class="val val-y">$40.5B</div><div class="lbl">2025 Global VC (+8%)</div></div>
+    <div class="stat"><div class="val val-gn">$255B</div><div class="lbl">누적 투자액 (Q4'25)</div></div>
+    <div class="stat"><div class="val val-pp">$14.4B</div><div class="lbl">에너지 부문 3년 최고</div></div>
+    <div class="stat"><div class="val val-bl">-18%</div><div class="lbl">딜 수 감소 (선별화)</div></div>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Year</th><th>Global Investment</th><th>Key Trend</th></tr></thead>
+      <tbody>
+        <tr><td><strong>2022</strong></td><td>~$70B</td><td>역대 최고, IRA 기대감, SPAC 붐</td></tr>
+        <tr><td><strong>2023</strong></td><td>~$50B</td><td>금리 인상, 조정기 진입</td></tr>
+        <tr><td><strong>2024</strong></td><td>~$37.5B</td><td>선별적 투자, Later Stage 집중</td></tr>
+        <tr><td style="color:var(--y)"><strong>2025</strong></td><td style="color:var(--y)"><strong>$40.5B (+8%)</strong></td><td style="color:var(--y)">안정화, 에너지 $14.4B, 핵융합 사상 최고, AI+기후 급증</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="margin-bottom:2.5rem">
+    <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.25rem;color:var(--y)">Major Deals 2024–2025</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Company</th><th>Sector</th><th>Round</th><th>Amount</th><th>Year</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Reneo</strong></td><td>부동산 탈탄소화</td><td>Series B</td><td>$624M</td><td>2025</td></tr>
+          <tr><td><strong>KoBold Metals</strong></td><td>AI 광물 탐사</td><td>Series C</td><td>$537M</td><td>2025</td></tr>
+          <tr><td><strong>Form Energy</strong></td><td>장기 에너지 저장</td><td>Series E</td><td>$450M</td><td>2024</td></tr>
+          <tr><td><strong>Fervo Energy</strong></td><td>차세대 지열</td><td>Series C</td><td>$244M</td><td>2024</td></tr>
+          <tr><td><strong>Twelve</strong></td><td>CO2→SAF 전환</td><td>Series C</td><td>$200M+</td><td>2025</td></tr>
+          <tr><td><strong>Antora Energy</strong></td><td>산업 열 저장</td><td>Series B</td><td>$150M</td><td>2024</td></tr>
+          <tr><td><strong>Heirloom Carbon</strong></td><td>DAC</td><td>Series B</td><td>$150M</td><td>2024</td></tr>
+          <tr><td><strong>핵융합 스타트업 다수</strong></td><td>핵에너지/핵융합</td><td>Various</td><td>$1B+ 합계</td><td>2025</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.25rem">5 Key Trends</h3>
+  <div class="g3">
+    <div class="c"><h3>안정화, 회복은 아님</h3><div class="c-desc">$40.5B (+8%)이나 투자자 수 11% 감소. "feast-or-famine" 양극화 심화</div></div>
+    <div class="c"><h3>핵에너지/핵융합 급부상</h3><div class="c-desc">에너지 펀딩의 44%가 핵분열+핵융합. 사상 최고치. SPAC/IPO 가능성</div></div>
+    <div class="c"><h3>시드/시리즈A 감소</h3><div class="c-desc">시드 -12.8%, 시리즈A -12%, 시리즈B +26.8%. 성과 입증 기업에 집중</div></div>
+    <div class="c"><h3>AI 인프라 × 에너지</h3><div class="c-desc">데이터센터 전력 수요가 투자 핵심 동인. AI+에너지 교차 투자 급증</div></div>
+    <div class="c"><h3>한국 생태계 성장</h3><div class="c-desc">소풍 2호 기후펀드 250억원. 한국기후테크협회 46개사 설립. 총 272개사</div></div>
+  </div>
+</section>
+
+<!-- ═══ STARTUPS ═══ -->
+<div class="sec-divider"></div>
+<section class="sec" id="s-startup">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Startup Radar</div>
+    <h2>기후테크 스타트업</h2>
+    <p>국내외 주목할 기후테크 스타트업 프로필</p>
+  </div>
+  <div class="filter-bar">
+    <input class="f-input" id="q" placeholder="Search startups...">
+    <span class="chip on" data-f="all">All</span>
+    <span class="chip" data-f="KR">🇰🇷 Korea</span>
+    <span class="chip" data-f="energy">Energy AI</span>
+    <span class="chip" data-f="ccus">CCUS</span>
+    <span class="chip" data-f="circular">Circular</span>
+    <span class="chip" data-f="data">Climate Data</span>
+    <span class="chip" data-f="ai">AI+Climate</span>
+    <span class="chip" data-f="food">AgriFood</span>
+  </div>
+  <div class="g3" id="sg"></div>
+</section>
+
+<!-- ═══ POLICY ═══ -->
+<div class="sec-divider"></div>
+<section class="sec" id="s-policy">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Policy Monitor</div>
+    <h2>기후 정책 모니터</h2>
+    <p>글로벌/국내 기후 정책 변화와 스타트업 생태계 영향</p>
+  </div>
+  <div class="g2" style="margin-bottom:2.5rem">
+    <div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.25rem;color:var(--y)">🇰🇷 한국</h3>
+      <div style="display:flex;flex-direction:column;gap:1.25rem">
+        <div class="c policy-card" onclick="openModal('m-klimenv')"><div class="c-tag tag-y">신설 부처</div><h3>기후에너지환경부</h3><div class="c-desc">기후/에너지/환경 정책 통합. 기후테크 산업 육성 컨트롤타워.</div><div class="c-accent">스타트업: 인허가·지원 원스톱 창구 가능성</div></div>
+        <div class="c policy-card" onclick="openModal('m-kets')"><div class="c-tag tag-gn">배출권</div><h3>K-ETS 제4기 (2026~2030)</h3><div class="c-desc">유상할당 확대, 자발적 탄소시장 연계. 중소기업 참여 확대.</div><div class="c-accent">MRV, 탄소회계 스타트업 직접 수혜</div></div>
+        <div class="c policy-card" onclick="openModal('m-fund')"><div class="c-tag tag-pp">펀드</div><h3>미래환경산업투자펀드 810억원</h3><div class="c-desc">정부 출자+민간 매칭. 환경/기후테크 스타트업 투자.</div><div class="c-accent">초기/성장기 직접 자금 조달 경로</div></div>
+        <div class="c policy-card" onclick="openModal('m-assoc')"><div class="c-tag tag-gn">NEW</div><h3>한국기후테크협회 설립 (2026.03)</h3><div class="c-desc">46개 기업 참여. 식스티헤르츠, 수퍼빈, 나라스페이스, 소프트베리, 엔씽 등. 기후에너지환경부에 설립 신청.</div><div class="c-accent">규제 개선, 투자 유치, R&D 협력, 창업 멘토링 추진</div></div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.25rem;color:var(--y)">🌍 글로벌</h3>
+      <div style="display:flex;flex-direction:column;gap:1.25rem">
+        <div class="c policy-card" onclick="openModal('m-cbam')"><div class="c-tag tag-pp">🇪🇺 EU</div><h3>CBAM 본격 시행 (2026.01.01~)</h3><div class="c-desc">시행 첫 주 12,000+ 사업자 신청, 4,100+ 인가 완료. 10,483건 수입통관(165만톤). €70-100/tCO2.</div><div class="c-accent">한국 수출기업 탄소 데이터/보고 솔루션 수요 급증 현실화</div></div>
+        <div class="c policy-card" onclick="openModal('m-us')"><div class="c-tag tag-or">🇺🇸 미국</div><h3>파리협정 탈퇴 발효 + IRA 부분 수정</h3><div class="c-desc">2026.01 파리협정 탈퇴 공식 효력 발생. IRA 청정에너지 세액공제 부분 축소 추진 중. EPA 규제 완화.</div><div class="c-accent">미국 불확실성 → 유럽/아시아 기후테크 기회 확대</div></div>
+        <div class="c policy-card" onclick="openModal('m-cop30')"><div class="c-tag tag-gn">🌏 COP30</div><h3>벨렝 패키지 195국 채택</h3><div class="c-desc">적응 재정 3배 확대 ($120B/yr). 59개 적응 지표 합의. 열대우림기금(TFFF) $5.5B 출범. 화석연료 합의 실패.</div><div class="c-accent">적응(Adaptation) 분야 스타트업 수요 급증 전망</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ AI × CLIMATE ═══ -->
+<div class="sec-divider"></div>
+<section class="sec" id="s-ai">
+  <div class="sec-header">
+    <div class="sec-eyebrow">AI × Climate Intelligence</div>
+    <h2>AI 기후 솔루션 기술</h2>
+    <p>Foundation Model 혁명부터 빅테크 프로젝트, 데이터센터 에너지까지</p>
+  </div>
+  <div class="tbl-wrap" style="margin-bottom:2.5rem">
+    <table>
+      <thead><tr><th>Model</th><th>Organization</th><th>Technology</th><th>Breakthrough</th></tr></thead>
+      <tbody>
+        <tr style="color:var(--y)"><td><strong>NOAA AIGFS ⭐</strong></td><td>NOAA (운영급 도입)</td><td>AI 전지구 기상 예측 시스템</td><td>GFS 대비 0.3% 연산량, 40분 내 16일 예보</td></tr>
+        <tr style="color:var(--y)"><td><strong>DeepMet ⭐</strong></td><td>국제 연구팀</td><td>장기 기온/습도 AI 예측</td><td>ECMWF 대비 오차 20-60%↓, 극한기상 탐지 40%+↑</td></tr>
+        <tr><td><strong>Aurora</strong></td><td>Microsoft</td><td>Earth System Foundation Model</td><td>100만+시간 데이터, 대기질/해양파도/재해 예측</td></tr>
+        <tr style="color:var(--y)"><td><strong>DLESyM ⭐</strong></td><td>U. of Washington</td><td>AI 기후 에뮬레이터</td><td>1000년 기후 시뮬레이션을 1일 내 완료</td></tr>
+        <tr><td><strong>NeuralGCM</strong></td><td>Google Research</td><td>Hybrid Physics+ML</td><td>강수 극값(상위 0.1%) 예측 대폭 개선</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.25rem;color:var(--y)">Big Tech Climate AI</h3>
+  <div class="g3" style="margin-bottom:2.5rem">
+    <div class="c"><div class="c-tag tag-bl">Google</div><h3>7 Projects</h3><div class="c-desc">GraphCast, GenCast, Flood Hub, Carbon-Aware Computing, 데이터센터 냉각 40% 절감</div></div>
+    <div class="c"><div class="c-tag tag-tl">Microsoft</div><h3>6 Projects</h3><div class="c-desc">Planetary Computer, Aurora, ClimaX, AI for Earth, Carbon Negative 2030</div></div>
+    <div class="c"><div class="c-tag tag-y">Korea</div><h3>카카오 / 네이버 / SK</h3><div class="c-desc">카카오 DC 에너지 효율, 네이버 GAK PUE 1.09~1.13, SK AI+에너지</div></div>
+  </div>
+  <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.25rem;color:var(--y)">Summit Session Ideas</h3>
+  <div class="g3">
+    <div class="c"><div class="c-tag tag-y">Keynote</div><h3>AI 기상 예측의 패러다임 전환</h3><div class="c-desc">Foundation Model → 재생에너지 예측, 재해 대비</div></div>
+    <div class="c"><div class="c-tag tag-gn">Deep Dive</div><h3>탄소 MRV의 디지털 혁명</h3><div class="c-desc">위성+AI dMRV, 탄소크레딧 무결성, Scope 3 자동화</div></div>
+    <div class="c"><div class="c-tag tag-tl">Hands-on</div><h3>기후 AI Agent 라이브 데모</h3><div class="c-desc">바이브코딩으로 기후 AI Agent 실시간 구축 체험</div></div>
+  </div>
+</section>
+
+<!-- ═══ ECOSYSTEM ═══ -->
+<div class="sec-divider"></div>
+<section class="sec" id="s-eco">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Ecosystem Map</div>
+    <h2>기후테크 생태계</h2>
+    <p>국내외 주요 VC, 정부, 대기업, 글로벌 네트워크</p>
+  </div>
+  <div class="stat-row">
+    <div class="stat"><div class="val val-y">16+</div><div class="lbl">VC / Accelerator</div></div>
+    <div class="stat"><div class="val val-gn">10</div><div class="lbl">Government</div></div>
+    <div class="stat"><div class="val val-pp">9</div><div class="lbl">Corporates</div></div>
+    <div class="stat"><div class="val val-bl">17+</div><div class="lbl">Global Networks</div></div>
+  </div>
+  <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.25rem;color:var(--y)">Korea VC / Accelerator</h3>
+  <div class="g3" style="margin-bottom:2.5rem">
+    <div class="c"><div class="c-tag tag-gn">Impact VC</div><h3>소풍벤처스</h3><div class="c-desc">한국 최초 임팩트 투자. 500억원+ 운용. 기후테크 특화 펀드. 시드~시리즈A.</div><div class="c-meta"><span class="badge" style="border-color:var(--y);color:var(--y)">파트너 기관</span></div></div>
+    <div class="c"><div class="c-tag tag-y">Kakao</div><h3>카카오벤처스</h3><div class="c-desc">4,000억원+ AUM. 딥테크/AI/기후테크. 카카오임팩트 ESG 연계.</div></div>
+    <div class="c"><div class="c-tag tag-gn">Impact VC</div><h3>인비저닝파트너스</h3><div class="c-desc">200억원+. 기후테크/클린에너지 전문. ESG 컨설팅 병행.</div></div>
+    <div class="c"><div class="c-tag tag-bl">Finance</div><h3>KB인베스트먼트</h3><div class="c-desc">2조원+ AUM. ESG/클린테크 펀드 별도 조성.</div></div>
+  </div>
+  <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.25rem;color:var(--y)">Corporate CVC</h3>
+  <div class="tbl-wrap" style="margin-bottom:2.5rem">
+    <table>
+      <thead><tr><th>Group</th><th>CVC / Program</th><th>Focus</th></tr></thead>
+      <tbody>
+        <tr><td><strong>SK</strong></td><td>SK이노베이션, SK E&S, SK에코플랜트</td><td>에너지, CCUS, 수소, 배터리</td></tr>
+        <tr><td><strong>현대차</strong></td><td>ZER01NE, HTWO</td><td>모빌리티, 수소, 에너지</td></tr>
+        <tr><td><strong>포스코</strong></td><td>포스코벤처스</td><td>그린수소, 이차전지, CCUS</td></tr>
+        <tr><td><strong>LG</strong></td><td>LG테크놀로지벤처스</td><td>에너지, 소재, AI</td></tr>
+        <tr><td><strong>한화</strong></td><td>한화솔루션</td><td>태양광, 수소</td></tr>
+        <tr><td><strong>카카오</strong></td><td>카카오벤처스 + 카카오임팩트</td><td>기후AI, ESG</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.25rem;color:var(--y)">Global Networks</h3>
+  <div class="g3">
+    <div class="c"><h3>Breakthrough Energy</h3><div class="c-desc">빌 게이츠. BEV + BEC + BEF. 하드테크 기후 솔루션 집중.</div></div>
+    <div class="c"><h3>SOSV / IndieBio</h3><div class="c-desc">HAX(하드웨어), IndieBio(바이오). 300+ 기후 포트폴리오.</div></div>
+    <div class="c"><h3>GenZero (Temasek)</h3><div class="c-desc">$5B 아시아 기후 투자 플랫폼.</div></div>
+    <div class="c"><h3>Lowercarbon Capital</h3><div class="c-desc">CDR, 기후테크 전문. $2B+ AUM.</div></div>
+    <div class="c"><h3>Elemental Excelerator</h3><div class="c-desc">아태 기후 액셀러레이터. 에너지/교통/물/농업.</div></div>
+    <div class="c"><h3>AP Ventures</h3><div class="c-desc">수소, 연료전지 전문 VC.</div></div>
+  </div>
+</section>
+
+<!-- ═══ EVENTS ═══ -->
+<div class="sec-divider"></div>
+<section class="sec" id="s-event">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Global Events</div>
+    <h2>2026 이벤트 캘린더</h2>
+    <p>주요 글로벌 기후 컨퍼런스, COP31, 보고서 동향</p>
+  </div>
+  <div class="g2">
+    <div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.5rem;color:var(--y)">Timeline</h3>
+      <div class="tl">
+        <div class="tl-item"><div class="tl-date">Jan 2026</div><div class="tl-title">World Future Energy Summit</div><div class="tl-sub">Abu Dhabi</div></div>
+        <div class="tl-item"><div class="tl-date">Jan 2026</div><div class="tl-title">World Economic Forum</div><div class="tl-sub">Davos</div></div>
+        <div class="tl-item"><div class="tl-date">Mar 2026</div><div class="tl-title">CERAWeek</div><div class="tl-sub">Houston</div></div>
+        <div class="tl-item"><div class="tl-date">Apr 2026</div><div class="tl-title">BNEF Summit</div><div class="tl-sub">New York</div></div>
+        <div class="tl-item"><div class="tl-date">May 2026</div><div class="tl-title">Bonn Climate Conference</div><div class="tl-sub">Bonn — COP31 사전 협상</div></div>
+        <div class="tl-item"><div class="tl-date">Jun 2026</div><div class="tl-title">Intersolar Europe</div><div class="tl-sub">Munich</div></div>
+        <div class="tl-item hl"><div class="tl-date">Sep 2026</div><div class="tl-title">임팩트클라이밋 기후테크 서밋</div><div class="tl-sub">Jeju — 카카오임팩트 × 소풍벤처스</div></div>
+        <div class="tl-item"><div class="tl-date">Sep 2026</div><div class="tl-title">Climate Week NYC</div><div class="tl-sub">New York — 600+ events</div></div>
+        <div class="tl-item"><div class="tl-date">Oct 2026</div><div class="tl-title">SIEW</div><div class="tl-sub">Singapore</div></div>
+        <div class="tl-item hl"><div class="tl-date">Nov 9-20, 2026</div><div class="tl-title">COP31</div><div class="tl-sub">안탈리아, 터키 (호주 의장국) — 2026 최대 기후 이벤트</div></div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.5rem;color:var(--y)">Key Reports</h3>
+      <div style="display:flex;flex-direction:column;gap:1.25rem;margin-bottom:2.5rem">
+        <div class="c"><div class="c-tag tag-gn">IEA</div><h3>World Energy Investment 2025</h3><div class="c-desc">에너지 투자 $3.3T. 청정에너지 $2.2T vs 화석연료 $1.1T (2:1). 태양광 $450B 사상 최고. 전력 부문 $1.5T.</div></div>
+        <div class="c"><div class="c-tag tag-y">COP30</div><h3>벨렝 패키지 (2025.11)</h3><div class="c-desc">195국 채택, 29개 결정. 적응 재정 3배 ($120B/yr). TFFF $5.5B. 화석연료 합의는 실패.</div></div>
+        <div class="c"><div class="c-tag tag-bl">IPCC</div><h3>AR7 준비 + 도시 특별보고서</h3><div class="c-desc">WG I 2027년 발간 예정. 도시·기후 특별보고서 scoping 진행 중.</div></div>
+        <div class="c"><div class="c-tag tag-pp">Sightline</div><h3>Climate Tech VC 2025</h3><div class="c-desc">$40.5B (+8%), 누적 $255B. 에너지 36%, 핵융합 44%. 딜 수 -18%.</div></div>
+      </div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.5rem;color:var(--y)">Benchmark Summits</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Summit</th><th>Size</th><th>Focus</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Cleantech Forum</strong></td><td>500+</td><td>Deal-making, VC network</td></tr>
+            <tr><td><strong>VERGE</strong></td><td>2,000+</td><td>Corporate sustainability</td></tr>
+            <tr><td><strong>Ecosperity</strong></td><td>500+</td><td>Asia policy + capital</td></tr>
+            <tr><td style="color:var(--y)"><strong>Impact Climate</strong></td><td>130+</td><td>AI × Climate, intimate, AI Agent 플랫폼</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MODALS ═══ -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+
+  <!-- 기후에너지환경부 -->
+  <div class="modal" id="m-klimenv" style="display:none">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="m-tag tag-y">신설 부처</div>
+    <h2>기후에너지환경부</h2>
+    <div class="m-subtitle">Ministry of Climate, Energy and Environment — 2026년 출범</div>
+    <h3>배경</h3>
+    <p>기존 환경부를 확대 개편하여 기후, 에너지, 환경 정책을 통합 관장하는 부처로 격상. 기존 산업통상자원부 소관 에너지 정책 기능을 이관/공동 관할.</p>
+    <h3>주요 변화</h3>
+    <ul>
+      <li>탄소중립 정책과 에너지 전환 정책의 <strong>일원화된 거버넌스</strong> 구축</li>
+      <li>기후테크 산업 육성 정책의 <strong>컨트롤타워</strong> 역할 강화</li>
+      <li>한국기후테크협회(46개사)가 기후에너지환경부에 설립 신청 (2026.03)</li>
+      <li>미래환경산업투자펀드(810억원) 주관 부처</li>
+    </ul>
+    <h3>기후테크 스타트업 영향</h3>
+    <div class="m-highlight">에너지 전환 + 환경 규제가 단일 부처에서 관리됨에 따라 정책 일관성 향상. 기후테크 기업 대상 인허가 및 지원 정책의 원스톱 창구 가능성.</div>
+    <h3>리스크</h3>
+    <p>부처 신설 초기 조직 안정화 기간 중 정책 공백 리스크. 기존 산업부와의 에너지 정책 관할 조율 필요.</p>
+  </div>
+
+  <!-- K-ETS -->
+  <div class="modal" id="m-kets" style="display:none">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="m-tag tag-gn">배출권거래제</div>
+    <h2>K-ETS 제4기 (2026~2030)</h2>
+    <div class="m-subtitle">Korea Emissions Trading Scheme — 온실가스 배출권의 할당 및 거래에 관한 법률</div>
+    <div class="m-stat-row">
+      <div class="m-stat"><div class="val" style="color:var(--y)">~700</div><div class="lbl">대상 업체</div></div>
+      <div class="m-stat"><div class="val" style="color:var(--gn)">4기</div><div class="lbl">2026~2030</div></div>
+      <div class="m-stat"><div class="val" style="color:var(--bl)">확대</div><div class="lbl">유상할당 비율</div></div>
+    </div>
+    <h3>제4기 핵심 변화</h3>
+    <ul>
+      <li>유상할당 비율 추가 확대 (EU ETS 수준 지향)</li>
+      <li>배출권 가격 안정화 메커니즘 개선</li>
+      <li>자발적 탄소시장(VCM)과의 연계 방안 검토</li>
+      <li>중소기업 참여 확대 및 상쇄배출권(offset credit) 제도 정비</li>
+    </ul>
+    <h3>기후테크 스타트업 기회</h3>
+    <div class="m-highlight">
+      배출권 가격 상승 시 탄소 감축 기술 수요 직접 증가. MRV 기술, 탄소회계 플랫폼, 상쇄 프로젝트 개발 스타트업에 기회. 유상할당 확대로 기업의 탄소비용 증가 → 에너지효율, CCUS 기술 수요 견인.
+    </div>
+    <h3>관련 스타트업</h3>
+    <p>날리지포레스트(ESG 탄소회계), 에코아이(배출권 관리), 소프트베리(카본테크), 에너지엑스(전력 최적화)</p>
+  </div>
+
+  <!-- 미래환경산업투자펀드 -->
+  <div class="modal" id="m-fund" style="display:none">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="m-tag tag-pp">정부 펀드</div>
+    <h2>미래환경산업투자펀드</h2>
+    <div class="m-subtitle">기후에너지환경부 주도, 810억원 규모</div>
+    <div class="m-stat-row">
+      <div class="m-stat"><div class="val" style="color:var(--y)">810억</div><div class="lbl">펀드 규모</div></div>
+      <div class="m-stat"><div class="val" style="color:var(--gn)">~$60M</div><div class="lbl">USD 환산</div></div>
+      <div class="m-stat"><div class="val" style="color:var(--pp)">매칭</div><div class="lbl">정부+민간</div></div>
+    </div>
+    <h3>투자 대상</h3>
+    <ul>
+      <li>환경 분야 유망 스타트업 및 중소벤처기업</li>
+      <li>대기, 수질, 폐기물, 토양 등 환경산업 전반</li>
+      <li>탄소중립 관련 기후테크 기업</li>
+    </ul>
+    <h3>구조</h3>
+    <p>정부 출자 + 민간 매칭 펀드 형태 (모태펀드 출자 가능). KEITI(한국환경산업기술원) 참여.</p>
+    <div class="m-highlight">초기/성장기 기후테크 스타트업의 직접적 자금 조달 경로. 2026 서밋에서 펀드 연계 스타트업 피칭·투자 연결 세션 가능.</div>
+    <h3>관련 펀드</h3>
+    <p>소풍벤처스 2호 기후펀드 250억원 (2025.03), 코스포 기후테크산업협의회(2026.01, 26개사)</p>
+  </div>
+
+  <!-- 한국기후테크협회 -->
+  <div class="modal" id="m-assoc" style="display:none">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="m-tag tag-gn">NEW 2026.03</div>
+    <h2>한국기후테크협회 설립</h2>
+    <div class="m-subtitle">46개 혁신기업이 뭉친 산업 협회 — 기후에너지환경부 설립 인가 진행 중</div>
+    <div class="m-stat-row">
+      <div class="m-stat"><div class="val" style="color:var(--y)">46</div><div class="lbl">참여 기업</div></div>
+      <div class="m-stat"><div class="val" style="color:var(--gn)">5</div><div class="lbl">분야</div></div>
+      <div class="m-stat"><div class="val" style="color:var(--bl)">272</div><div class="lbl">국내 기후테크 총</div></div>
+    </div>
+    <h3>5대 분야 대표 기업</h3>
+    <table class="m-table">
+      <tr><th>분야</th><th>대표 기업</th><th>기업 수</th></tr>
+      <tr><td>클린테크 (Cleantech)</td><td><strong>식스티헤르츠</strong></td><td>49개</td></tr>
+      <tr><td>에코테크 (Ecotech)</td><td><strong>수퍼빈</strong></td><td>70개</td></tr>
+      <tr><td>지오테크 (Geotech)</td><td><strong>나라스페이스</strong></td><td>31개</td></tr>
+      <tr><td>카본테크 (Carbontech)</td><td><strong>소프트베리</strong></td><td>47개</td></tr>
+      <tr><td>푸드테크 (Foodtech)</td><td><strong>엔씽</strong></td><td>75개</td></tr>
+    </table>
+    <h3>추진 계획</h3>
+    <ul>
+      <li>현장 의견 반영한 <strong>규제 개선 및 정책 제안</strong></li>
+      <li>기후테크 펀드 등 <strong>투자 유치 지원</strong></li>
+      <li>회원사 간 <strong>기술 교류 및 R&D 협력</strong></li>
+      <li>기후테크 <strong>창업 활성화를 위한 멘토링</strong></li>
+    </ul>
+    <div class="m-highlight">2026 서밋 연계: 협회 회원사 중심으로 스타트업 피칭 스테이지 확대 가능. 기후에너지환경부 공동 세션 기획.</div>
+  </div>
+
+  <!-- EU CBAM -->
+  <div class="modal" id="m-cbam" style="display:none">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="m-tag tag-pp">🇪🇺 EU</div>
+    <h2>CBAM 본격 시행</h2>
+    <div class="m-subtitle">Carbon Border Adjustment Mechanism — 2026년 1월 1일 발효</div>
+    <div class="m-stat-row">
+      <div class="m-stat"><div class="val" style="color:var(--y)">12,000+</div><div class="lbl">사업자 신청</div></div>
+      <div class="m-stat"><div class="val" style="color:var(--gn)">4,100+</div><div class="lbl">인가 완료</div></div>
+      <div class="m-stat"><div class="val" style="color:var(--pp)">10,483</div><div class="lbl">수입통관 (첫 주)</div></div>
+      <div class="m-stat"><div class="val" style="color:var(--or)">€70-100</div><div class="lbl">/tCO2 인증서</div></div>
+    </div>
+    <h3>대상 품목 (6개)</h3>
+    <p>시멘트, 철강, 알루미늄, 비료, 전력, 수소 — EU로 수입하는 해당 품목에 대해 내재 탄소 배출량에 상응하는 CBAM 인증서 구매 의무.</p>
+    <h3>타임라인</h3>
+    <table class="m-table">
+      <tr><th>기간</th><th>내용</th></tr>
+      <tr><td>2023.10~2025.12</td><td>전환기: 보고 의무만 적용 (인증서 구매 없음)</td></tr>
+      <tr><td><strong>2026.01.01~</strong></td><td><strong>본격 시행: 인증서 구매 의무, 검증된 배출량 기반</strong></td></tr>
+      <tr><td>2026.05.31</td><td>첫 CBAM 신고서 제출 마감 (2026년 Q1 수입분)</td></tr>
+      <tr><td>2034</td><td>EU ETS 무상할당 완전 폐지, CBAM 전면 적용</td></tr>
+    </table>
+    <h3>시행 첫 주 실적 (2026.01.01~07)</h3>
+    <ul>
+      <li>CBAM 레지스트리와 회원국 세관 시스템 통합 완료</li>
+      <li>1,655,613톤의 CBAM 대상 물품 자동 통관 처리</li>
+      <li>미준수 시 초과 톤당 <strong>€100 벌금</strong></li>
+    </ul>
+    <div class="m-highlight">한국 영향: 철강·알루미늄 EU 수출 기업의 탄소 배출 데이터 관리, 탄소 보고 솔루션 수요 급증. 탄소회계 플랫폼(날리지포레스트, Watershed, Persefoni 등) 시장 확대.</div>
+  </div>
+
+  <!-- 미국 -->
+  <div class="modal" id="m-us" style="display:none">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="m-tag tag-or">🇺🇸 미국</div>
+    <h2>파리협정 탈퇴 + IRA 변화</h2>
+    <div class="m-subtitle">트럼프 2기 행정부의 기후 정책 전환</div>
+    <h3>파리협정 탈퇴</h3>
+    <ul>
+      <li>2025년 1월 20일: 취임 당일 파리협정 탈퇴 행정명령 서명</li>
+      <li><strong>2026년 1월: 공식 탈퇴 효력 발생</strong> (UN 절차상 통보 후 1년)</li>
+      <li>COP30(벨렝)에서 미국 부재가 협상에 큰 영향</li>
+    </ul>
+    <h3>IRA (Inflation Reduction Act) 변화</h3>
+    <ul>
+      <li>청정에너지 세액공제(45X, 45V, 30D 등) <strong>부분 축소 추진</strong></li>
+      <li>의회 예산조정법(reconciliation)을 통한 수정 진행 중</li>
+      <li>단, 공화당 의원 중 자기 지역구 혜택 폐지 반대 → <strong>전면 폐지보다 부분 수정</strong> 유력</li>
+      <li>EPA 규제 완화, LNG 수출 승인 재개</li>
+    </ul>
+    <div class="m-highlight">글로벌 영향: 미국 정책 불확실성으로 유럽/아시아 기후테크 투자 상대적 확대. 미국 내 기후테크 기업도 비정부 자금(VC, 주정부, 기업 PPA)으로 전환하는 추세.</div>
+    <h3>기후테크 시장 영향</h3>
+    <p>미국 기후테크 VC 투자는 2025년에도 27% 증가(Sightline Climate). 연방 정책 불확실성에도 불구하고 데이터센터, 핵에너지, EV 메가딜이 미국 투자를 견인.</p>
+  </div>
+
+  <!-- COP30 -->
+  <div class="modal" id="m-cop30" style="display:none">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="m-tag tag-gn">🌏 COP30</div>
+    <h2>벨렝 패키지 (Belém Package)</h2>
+    <div class="m-subtitle">2025년 11월 10-21일, 브라질 벨렝 — 195국 채택, 29개 결정</div>
+    <div class="m-stat-row">
+      <div class="m-stat"><div class="val" style="color:var(--y)">195</div><div class="lbl">채택 국가</div></div>
+      <div class="m-stat"><div class="val" style="color:var(--gn)">$120B</div><div class="lbl">적응 재정/yr</div></div>
+      <div class="m-stat"><div class="val" style="color:var(--pp)">$5.5B</div><div class="lbl">TFFF 출범</div></div>
+      <div class="m-stat"><div class="val" style="color:var(--or)">59</div><div class="lbl">적응 지표</div></div>
+    </div>
+    <h3>5대 핵심 성과</h3>
+    <ul>
+      <li><strong>적응 재정 3배 확대:</strong> 2035년까지 $120B/yr 목표. COP29의 $300B/yr 기후재원의 일부.</li>
+      <li><strong>벨렝 적응 지표 59개:</strong> 글로벌 적응 목표(GGA) 이행을 위한 자발적 지표 합의.</li>
+      <li><strong>공정전환 메커니즘:</strong> 벨렝 행동 메커니즘(BAM) 설립. 기술지원, 역량강화, 지식공유.</li>
+      <li><strong>열대우림기금(TFFF):</strong> 53국 참여, $5.5B 규모. 열대우림 보전·관리를 위한 장기 재원.</li>
+      <li><strong>벨렝 젠더 행동 계획:</strong> 기후 행동에서의 젠더 우선순위 설정.</li>
+    </ul>
+    <h3>합의 실패 영역</h3>
+    <p>80+국이 화석연료 퇴출 로드맵을 지지했으나, 최종 문서에 "화석연료" 언급 없음. 산림 벌채 로드맵도 합의 실패 (브라질이 자발적 프로세스로 COP31에서 재제출 예정).</p>
+    <div class="m-highlight">서밋 시사점: 적응(Adaptation) 분야 스타트업 수요 급증 전망. COP31(안탈리아)에서의 후속 논의에 대비한 세션 기획 필요. TFFF 연계 자연기반 솔루션(NbS) 스타트업 발굴.</div>
+    <h3>COP31 연결</h3>
+    <p><strong>터키 안탈리아</strong>, 2026년 11월 9-20일 개최. 호주가 의장국(President) 역할. 태평양 도서국과 Pre-COP 공동 개최. NDC 이행 점검, 기후 재정, 화석연료 전환이 핵심 의제.</p>
+  </div>
+
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<div class="sec-divider"></div>
+<footer class="footer">
+  <div class="footer-logo">IMPACT<em>CLIMATE</em> RESEARCH HUB</div>
+  <p>카카오임팩트 × 소풍벤처스 | 6 AI Research Agents | Web-verified Apr 2026</p>
+  <p style="margin-top:0.35rem">© 2026 Kakao Impact Foundation. Next update: May 2026</p>
+</footer>
+
+<script>
+// ═══ STARTUP DATA ═══
+const D=[
+  {n:"에이팀벤처스",e:"Ateam Ventures",cat:"circular",co:"KR",yr:2015,st:"Series B+",f:"300억원+",t:"3D 프린팅 온디맨드 제조 '캐파'. 분산 제조로 탄소 저감",h:"순환경제+제조 혁신 교차점",tg:["순환경제","제조"]},
+  {n:"씨티케이",e:"CTK Bio",cat:"ccus",co:"KR",yr:2021,st:"Series A",f:"수십억원",t:"CO2 바이오 전환. 미생물 가스 발효 기술",h:"탄소를 '비용'이 아닌 '자원'으로",tg:["CCUS","딥테크"]},
+  {n:"에너지엑스",e:"EnergyX Korea",cat:"energy",co:"KR",yr:2020,st:"Series A",f:"수십억원",t:"AI 에너지 수요 예측, 전력 거래 최적화, VPP 운영",h:"전력시장 자유화·RE100 수혜",tg:["에너지AI","VPP"]},
+  {n:"리카본",e:"Re:Carbon",cat:"ccus",co:"KR",yr:2022,st:"Seed",f:"시드",t:"고체 흡착제 모듈형 DAC(직접공기포집)",h:"국내 DAC 선두",tg:["DAC","딥테크"]},
+  {n:"날리지포레스트",e:"Knowledge Forest",cat:"data",co:"KR",yr:2019,st:"Series A+",f:"수십억원",t:"AI ESG 데이터/Scope 1·2·3 탄소 배출량 자동 산정",h:"ESG 공시 의무화 수혜",tg:["기후데이터","ESG"]},
+  {n:"원프레딕트",e:"OnePredict",cat:"energy",co:"KR",yr:2016,st:"Series C",f:"200억원+",t:"AI 설비 예지보전 'GuardiOne'. 풍력 고장 예측",h:"재생에너지 설비 효율 극대화",tg:["예지보전","풍력"]},
+  {n:"슈퍼빈",e:"Superbin",cat:"circular",co:"KR",yr:2015,st:"Series B+",f:"300억원+",t:"AI 역자판기 '네프론'. CV 캔/PET 자동 분류·수거",h:"전국 2,000대+. 소비자 접점 순환경제",tg:["AI","리사이클링"]},
+  {n:"퓨리오사AI",e:"FuriosaAI",cat:"ai",co:"KR",yr:2017,st:"Series B",f:"1,000억원+",t:"저전력 AI 반도체(NPU) 'RNGD'. GPU 대비 전력 대폭 절감",h:"AI 인프라 에너지 효율화 핵심",tg:["AI반도체","그린AI"]},
+  {n:"지구인컴퍼니",e:"Zikooin",cat:"food",co:"KR",yr:2017,st:"Series B",f:"100억원+",t:"식물성 대체육 'UNLIMEAT'. 대두/현미",h:"Costco 입점. K-food 해외 확장",tg:["대체육","수출"]},
+  {n:"Climeworks",e:"Climeworks",cat:"ccus",co:"CH",yr:2009,st:"Series F+",f:"$800M+",t:"고체 흡착제 DAC. Mammoth 연 36,000톤",h:"DAC 상용화 글로벌 선두",tg:["DAC","유니콘"]},
+  {n:"Twelve",e:"Twelve",cat:"ccus",co:"US",yr:2015,st:"Series C+",f:"$400M+",t:"CO2 전기분해→합성연료(SAF)",h:"항공 탈탄소화 핵심",tg:["SAF","Power-to-X"]},
+  {n:"Watershed",e:"Watershed",cat:"data",co:"US",yr:2019,st:"Series C",f:"$100M+",t:"기업 탄소 회계 + 탈탄소화 플랫폼",h:"$1.8B 유니콘. Airbnb, Stripe",tg:["탄소회계","유니콘"]},
+  {n:"ClimateAi",e:"ClimateAi",cat:"ai",co:"US",yr:2017,st:"Series B",f:"$30M+",t:"AI 기후 리스크·농업/공급망 예측",h:"기후 적응 AI 선두",tg:["기후적응","리스크"]},
+  {n:"Sylvera",e:"Sylvera",cat:"ai",co:"GB",yr:2020,st:"Series B",f:"$57M+",t:"AI+위성 탄소크레딧 등급 평가",h:"탄소 시장 신뢰 인프라",tg:["탄소크레딧","MRV"]},
+  {n:"Kayrros",e:"Kayrros",cat:"ai",co:"FR",yr:2016,st:"Series B",f:"$40M+",t:"위성+AI 메탄 배출 실시간 탐지",h:"EU 메탄 규제 수혜",tg:["메탄","위성"]},
+  {n:"Pachama",e:"Pachama",cat:"biodiversity",co:"US",yr:2018,st:"Series B",f:"$79M+",t:"위성+AI/LiDAR 산림 탄소 MRV",h:"자연기반 탄소크레딧 무결성",tg:["산림탄소","AI"]},
+  {n:"Octopus Energy",e:"Octopus Energy",cat:"energy",co:"GB",yr:2015,st:"Series E+",f:"$9B+ val.",t:"AI 'Kraken' 에너지 공급/수요 최적화",h:"일본 진출. AI 에너지 리테일 혁신",tg:["에너지AI","플랫폼"]},
+  {n:"H2 Green Steel",e:"H2 Green Steel",cat:"energy",co:"SE",yr:2020,st:"Growth",f:"€6B+",t:"그린수소 직접환원철. CO2 95% 감축",h:"BMW/Mercedes 선구매 계약",tg:["그린수소","철강"]},
+  {n:"디보션푸드",e:"Devotion Foods",cat:"food",co:"KR",yr:2021,st:"Seed~A",f:"초기",t:"미생물 정밀 발효 동물성 단백질 생산",h:"국내 정밀 발효 선두",tg:["정밀발효","푸드테크"]},
+  {n:"Open Climate Fix",e:"Open Climate Fix",cat:"ai",co:"GB",yr:2019,st:"Non-profit",f:"Google 지원",t:"AI/ML 태양광 발전량 예측. 오픈소스",h:"오픈소스 기후 AI 선도",tg:["오픈소스","태양광"]},
+];
+
+const CT={energy:{l:"Energy AI",c:"var(--bl)",cl:"tag-bl"},ccus:{l:"CCUS",c:"var(--pp)",cl:"tag-pp"},circular:{l:"Circular",c:"var(--gn)",cl:"tag-gn"},biodiversity:{l:"Biodiversity",c:"var(--pk)",cl:"tag-pk"},data:{l:"Climate Data",c:"var(--or)",cl:"tag-or"},food:{l:"AgriFood",c:"var(--y)",cl:"tag-y"},ai:{l:"AI+Climate",c:"var(--tl)",cl:"tag-tl"}};
+const CO={KR:"🇰🇷",US:"🇺🇸",GB:"🇬🇧",CH:"🇨🇭",FR:"🇫🇷",SE:"🇸🇪"};
+let fl="all",qr="";
+
+function rS(){
+  const g=document.getElementById("sg");
+  const ls=D.filter(s=>{const mf=fl==="all"||s.cat===fl||(fl==="KR"&&s.co==="KR");if(!qr)return mf;const q=qr.toLowerCase();return mf&&(s.n.toLowerCase().includes(q)||s.e.toLowerCase().includes(q)||s.t.toLowerCase().includes(q)||s.tg.some(t=>t.toLowerCase().includes(q)));});
+  if(!ls.length){g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--wh4)">No results found</div>';return;}
+  g.innerHTML=ls.map(s=>{const c=CT[s.cat]||{};return`<div class="c"><div class="c-tag ${c.cl||'tag-y'}">${c.l||s.cat}</div><h3>${s.n} <small>${s.e}</small></h3><div class="c-desc">${s.t}</div><div class="c-meta"><span class="badge">${CO[s.co]||s.co}</span><span class="badge">${s.st}</span><span class="badge">${s.f}</span>${s.tg.slice(0,2).map(t=>`<span class="badge">${t}</span>`).join('')}</div>${s.h?`<div class="c-accent">${s.h}</div>`:''}</div>`;}).join('');
+}
+
+// ═══ NAV ═══
+document.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',()=>{
+  const id=l.dataset.to;scrollTo_(id);
+}));
+function scrollTo_(id){
+  const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ═══ SCROLL OBSERVER ═══
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');
+  // update nav
+  const id=e.target.id;
+  document.querySelectorAll('.nav-link').forEach(l=>{l.classList.toggle('active',l.dataset.to===id);});
+}});},{threshold:0.15,rootMargin:'-64px 0px 0px 0px'});
+document.querySelectorAll('.sec').forEach(s=>obs.observe(s));
+
+// ═══ FILTERS ═══
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
+  document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));
+  c.classList.add('on');fl=c.dataset.f;rS();
+}));
+document.getElementById('q')?.addEventListener('input',e=>{qr=e.target.value;rS();});
+
+rS();
+
+// ═══ MODAL ═══
+function openModal(id){
+  const overlay=document.getElementById('modalOverlay');
+  overlay.querySelectorAll('.modal').forEach(m=>m.style.display='none');
+  const m=document.getElementById(id);
+  if(m){m.style.display='block';overlay.classList.add('open');document.body.style.overflow='hidden';}
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>
